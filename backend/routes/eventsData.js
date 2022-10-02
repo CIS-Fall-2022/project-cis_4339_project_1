@@ -127,7 +127,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
 
 //Delete an event based on ID
 router.delete("/delete", (req, res, next) => {
-    eventdata.remove({ _id: req.body.id }, function (err) {
+    eventdata.deleteOne({ _id: req.body.id }, function (err) {
         if (err) {
             console.log(err)
         } else {
