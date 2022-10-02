@@ -3,6 +3,7 @@ const router = express.Router();
 
 //importing data model schemas
 let { eventdata } = require("../models/models"); 
+const { route } = require("./primaryData");
 
 //GET all entries
 router.get("/", (req, res, next) => { 
@@ -123,5 +124,18 @@ router.put("/addAttendee/:id", (req, res, next) => {
     );
     
 });
+
+//Delete an event based on ID
+router.delete("/delete", (req, res, next) => {
+    eventdata.remove({ _id: req.body.id }, function (err) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.json({ "status": "Event has been deleted" });
+        }
+    });
+});
+
+
 
 module.exports = router;
