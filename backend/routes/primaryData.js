@@ -92,4 +92,17 @@ router.put("/:id", (req, res, next) => {
     );
 });
 
+
+//Delete a client based on ID
+router.delete("/delete", (req, res, next) => {
+    console.log(req.body.id)
+    primarydata.remove({ _id: req.body.id }, function (err) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.json({"status": "Client has been deleted"});
+        }
+    });
+});
+
 module.exports = router;
