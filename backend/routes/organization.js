@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 //importing data model schemas
-let { organization } = require("../models/models"); 
+let { organizationdata } = require("../models/models"); 
 
-router.get("/", (req, res, next) => { 
-    organization.find( 
+//GET all entries
+router.get("/organization", (req, res, next) => { 
+    organizationdata.find( 
         (error, data) => {
             if (error) {
                 return next(error);
@@ -17,8 +18,9 @@ router.get("/", (req, res, next) => {
 });
 
 //POST
-router.post("/", (req, res, next) => { 
-    organization.create( 
+router.post("/organization", (req, res, next) => { 
+    console.log(req.body)
+    organizationdata.create( 
         req.body, 
         (error, data) => { 
             if (error) {
