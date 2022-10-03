@@ -5,7 +5,7 @@ const router = express.Router();
 let { organizationdata } = require("../models/models"); 
 
 //GET all entries
-router.get("/organization", (req, res, next) => { 
+router.get("/", (req, res, next) => { 
     organizationdata.find( 
         (error, data) => {
             if (error) {
@@ -18,8 +18,7 @@ router.get("/organization", (req, res, next) => {
 });
 
 //POST
-router.post("/organization", (req, res, next) => { 
-    console.log(req.body)
+router.post("/", (req, res, next) => { 
     organizationdata.create( 
         req.body, 
         (error, data) => { 
