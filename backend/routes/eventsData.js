@@ -135,9 +135,14 @@ router.delete("/delete", (req, res, next) => {
         }
     });
 });
-// test api
-router.put("/removeuser", (req, res, next) => {
-    eventdata.update({}, { $pull: { attendees: req.body.attendee } }, (error, data) =>{
+
+
+// remove a user from an event
+router.put("/removeuser/:id", (req, res, next) => {
+    console.log(req.params.id)
+    eventdata.updateMany({},
+     { $pull: { attendees: req.params.id } }, 
+     (error, data) =>{
         if (error) {
             return next(error);
         } else {
@@ -145,5 +150,19 @@ router.put("/removeuser", (req, res, next) => {
         }
     });
 });
+
+router.delete("/removeuser", (req, res, next) => {
+    console.log(req.body.id)
+    eventdata.updateMany({},
+     { $pull: { attendees: req.body.id } }, 
+     (error, data) =>{
+        if (error) {
+            return next(error);
+        } else {
+            res.json(data);
+        }
+    });
+});
+
 
 module.exports = router;
