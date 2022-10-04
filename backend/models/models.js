@@ -39,11 +39,12 @@ let primaryDataSchema = new Schema({
         },
         zip: {
             type: String,
-        },
-        company: {
-            type: String,
-            // required: true
         }
+    },
+    organization: {
+        type: String, 
+        default: ""
+        // required: true
     }
 }, {
     collection: 'primaryData',
@@ -87,8 +88,9 @@ let eventDataSchema = new Schema({
     attendees: [{
         type: String
     }],
-    company: {
-        type: String,
+    organization: {
+        type: String, 
+        default: ""
         // required: true
     }
 }, {

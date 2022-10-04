@@ -110,7 +110,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
                         { $push: { attendees: req.body.attendee } },
                         (error, data) => {
                             if (error) {
-                                consol
+                                console.log(error)
                                 return next(error);
                             } else {
                                 res.json(data);
@@ -135,7 +135,15 @@ router.delete("/delete", (req, res, next) => {
         }
     });
 });
-
-
+// test api
+router.put("/removeuser", (req, res, next) => {
+    eventdata.update({}, { $pull: { attendees: req.body.attendee } }, (error, data) =>{
+        if (error) {
+            return next(error);
+        } else {
+            res.json(data);
+        }
+    });
+});
 
 module.exports = router;
