@@ -183,4 +183,16 @@ router.delete("/removeclient", (req, res, next) => {
 });
 
 
+
+router.get("/dashboard", (req, res, next) => {
+    eventdata.find({},{date:{$lte: new Date(new Date().setMonth(new Date().getMonth() + 5))}}),
+    (error, data) =>{
+        if(error) {
+            return next(error);
+        } else {
+            res.json(data);
+        }
+    }
+})
+
 module.exports = router;
