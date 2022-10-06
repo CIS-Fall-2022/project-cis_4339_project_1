@@ -5,9 +5,12 @@ const router = express.Router();
 let { primarydata } = require("../models/models"); 
 let { eventdata } = require("../models/models"); 
 
-//GET all entries
+//GET all entries on a certain company using body request
+/*Example Route Link: localhost:3000/primarydata/
+
+Example Body: { "id":"3c3c6e50-42c4-11ed-b715-0d8c70bb56bc"} (ID value just for example purposes) */
 router.get("/", (req, res, next) => { 
-    primarydata.find( 
+    primarydata.find( {organization: req.body.id},
         (error, data) => {
             if (error) {
                 return next(error);
@@ -18,7 +21,8 @@ router.get("/", (req, res, next) => {
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
 
-//GET single entry by ID
+//GET single entry by client ID using parameters
+// Example Route Link: localhost:3000/primarydata/id/e8320710-4418-11ed-9e07-c35f33399c12
 router.get("/id/:id", (req, res, next) => {
     primarydata.find( 
         { _id: req.params.id }, 
@@ -33,7 +37,8 @@ router.get("/id/:id", (req, res, next) => {
 });
 
 //GET entries based on search query
-//Ex: '...?firstName=Bob&lastName=&searchBy=name' 
+//Example Route Link: 'localhost:3000/primarydata/search/?firstName=Bob&lastName=&searchBy=name' 
+//ToDo: implement organization id in search query
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
@@ -55,7 +60,8 @@ router.get("/search/", (req, res, next) => {
     );
 });
 
-//GET events for a single client
+//GET events for a single client using client id
+//Example Route Link: localhost:3000/primarydata/events/e8320710-4418-11ed-9e07-c35f33399c12
 router.get("/events/:id", (req, res, next) => { 
     eventdata.find({id: req.params.id},
     (error, data) => {
@@ -68,7 +74,9 @@ router.get("/events/:id", (req, res, next) => {
     );
 });
 
-//POST
+//POST, Used to create a user based on the primary data model on the body section
+//Example Route Link: localhost:3000/primarydata/
+// Example of the body request will be in the readme for the backend
 router.post("/", (req, res, next) => { 
     primarydata.create( 
         req.body,
@@ -86,6 +94,9 @@ router.post("/", (req, res, next) => {
 });
 
 //PUT update (make sure req body doesn't have the id)
+// update any field of a client uses same bosy as the create client api
+// uses the primary data collection schema as a body request exept for not including client id in body
+//Example Route Link: localhost:3000/primarydata/e8320710-4418-11ed-9e07-c35f33399c12
 router.put("/:id", (req, res, next) => { 
     primarydata.findOneAndUpdate( 
         { _id: req.params.id }, 
@@ -101,7 +112,10 @@ router.put("/:id", (req, res, next) => {
 });
 
 
-//Delete a client based on ID
+//Delete a client using id in a request body
+// this will be linked to the remove user from all events api in the frontend
+//Example Route Link: localhost:3000/primarydata/delete
+//Example Body: {"id":"e8320710-4418-11ed-9e07-c35f33399c12"}
 router.delete("/delete", (req, res, next) => {
     console.log(req.body.id)
     primarydata.deleteOne({ _id: req.body.id }, function (err) {

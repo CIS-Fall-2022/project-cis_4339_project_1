@@ -5,9 +5,11 @@ const router = express.Router();
 let { eventdata } = require("../models/models"); 
 const { route } = require("./primaryData");
 
-//GET all entries
+//GET all entries depending on organization
+//Example Route Link: localhost:3000/eventdata
+//Example Body: {"id":"(EventID)" }
 router.get("/", (req, res, next) => { 
-    eventdata.find( 
+    eventdata.find( {organization: req.body.id},
         (error, data) => {
             if (error) {
                 return next(error);
@@ -18,7 +20,8 @@ router.get("/", (req, res, next) => {
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
 
-//GET single entry by ID
+//GET single event by its ID
+//Example Route Link: localhost:3000/eventdata/(EventID)
 router.get("/id/:id", (req, res, next) => { 
     eventdata.find({ _id: req.params.id }, (error, data) => {
         if (error) {
@@ -29,8 +32,8 @@ router.get("/id/:id", (req, res, next) => {
     })
 });
 
-//GET entries based on search query
-//Ex: '...?eventName=Food&searchBy=name' 
+//GET events based on search query
+//Example Route Link: localhost:3000/eventdata/search/?eventName=Food&searchBy=name' 
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
@@ -53,6 +56,7 @@ router.get("/search/", (req, res, next) => {
 });
 
 //GET events for which a client is signed up
+//Route Link: localhost:3000/eventdata/client/(ClientID)
 router.get("/client/:id", (req, res, next) => { 
     eventdata.find( 
         { attendees: req.params.id }, 
@@ -66,7 +70,9 @@ router.get("/client/:id", (req, res, next) => {
     );
 });
 
-//POST
+//POST, Create a new Event
+//// Body example will be included in the readme of the backend
+//Example Route Link: localhost:3000/eventdata/
 router.post("/", (req, res, next) => { 
     eventdata.create( 
         req.body, 
@@ -80,7 +86,9 @@ router.post("/", (req, res, next) => {
     );
 });
 
-//PUT
+//PUT, Updates the event via a body request
+// Body example will be included in the readme of the backend - dont include event id in body
+//Example Route Link: localhost:3000/eventdata/(EventID)
 router.put("/:id", (req, res, next) => {
     eventdata.findOneAndUpdate(
         { _id: req.params.id },
@@ -96,8 +104,10 @@ router.put("/:id", (req, res, next) => {
 });
 
 //PUT add attendee to event
+//Example Route Link: localhost:3000/eventdata/addAttendee/event_id_goes_here
+//Example Body: {"id":"(attendeeID)"}
 router.put("/addAttendee/:id", (req, res, next) => {
-    //only add attendee if not yet signed uo
+    //only add attendee if not yet signed up
     eventdata.find( 
         { _id: req.params.id, attendees: req.body.attendee }, 
         (error, data) => { 
@@ -125,7 +135,9 @@ router.put("/addAttendee/:id", (req, res, next) => {
     
 });
 
-//Delete an event based on ID
+//Delete an event based on event id using body request
+//Route Link: localhost:3000/eventdata/delete
+//Example Body: {"id":"EventID"}
 router.delete("/delete", (req, res, next) => {
     eventdata.deleteOne({ _id: req.body.id }, function (err) {
         if (err) {
@@ -137,7 +149,9 @@ router.delete("/delete", (req, res, next) => {
 });
 
 
-// remove a user from an event
+// remove a client from an event, uses params since body does not work in this route
+//user client id in the link
+//Route Link: localhost:3000/eventdata/removeuser/User_ID_goes_here
 router.put("/removeuser/:id", (req, res, next) => {
     console.log(req.params.id)
     eventdata.updateMany({},
@@ -151,7 +165,11 @@ router.put("/removeuser/:id", (req, res, next) => {
     });
 });
 
-router.delete("/removeuser", (req, res, next) => {
+//remove a client from all events, used in conjunction with delete client
+// will deal with both requests in frontend but for now this request should go first and then the delete client
+//Route Link: localhost:3000/eventdata/removeclient
+//EX: {"id":"UserID"}
+router.delete("/removeclient", (req, res, next) => {
     console.log(req.body.id)
     eventdata.updateMany({},
      { $pull: { attendees: req.body.id } }, 
