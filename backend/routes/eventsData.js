@@ -34,13 +34,14 @@ router.get("/id/:id", (req, res, next) => {
 
 //GET events based on search query
 //Example Route Link: localhost:3000/eventdata/search/?eventName=Food&searchBy=name' 
+//Request body Example {"id":"0acad70-42ae-11ed-9419-f17976354230"}
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" } }
+        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" }, organization: req.body.id }
     } else if (req.query["searchBy"] === 'date') {
         dbQuery = {
-            date:  req.query["eventDate"]
+            date:  req.query["eventDate"], organization: req.body.id
         }
     };
     eventdata.find( 
@@ -154,8 +155,8 @@ router.delete("/delete", (req, res, next) => {
 //Route Link: localhost:3000/eventdata/removeuser/User_ID_goes_here
 router.put("/removeuser/:id", (req, res, next) => {
     console.log(req.params.id)
-    eventdata.updateMany({},
-     { $pull: { attendees: req.params.id } }, 
+    eventdata.updateOne({_id: req.params.id},
+     { $pull: { attendees: req.body.id } }, 
      (error, data) =>{
         if (error) {
             return next(error);

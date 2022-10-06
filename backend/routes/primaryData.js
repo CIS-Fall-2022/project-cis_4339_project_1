@@ -38,14 +38,14 @@ router.get("/id/:id", (req, res, next) => {
 
 //GET entries based on search query
 //Example Route Link: 'localhost:3000/primarydata/search/?firstName=Bob&lastName=&searchBy=name' 
-//ToDo: implement organization id in search query
+//Request Body Example {"id":"Organization ID"}
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" } }
+        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" }, organization: req.body.id}
     } else if (req.query["searchBy"] === 'number') {
         dbQuery = {
-            "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }
+            "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }, organization: req.body.id
         }
     };
     primarydata.find( 
@@ -60,10 +60,10 @@ router.get("/search/", (req, res, next) => {
     );
 });
 
-//GET events for a single client using client id
+//GET events by using EventID
 //Example Route Link: localhost:3000/primarydata/events/e8320710-4418-11ed-9e07-c35f33399c12
 router.get("/events/:id", (req, res, next) => { 
-    eventdata.find({id: req.params.id},
+    eventdata.find({attendees: req.params.id},
     (error, data) => {
         if (error) {
             return next(error);
