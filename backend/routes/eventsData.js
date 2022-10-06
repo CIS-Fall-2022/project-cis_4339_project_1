@@ -4,6 +4,7 @@ const router = express.Router();
 //importing data model schemas
 let { eventdata } = require("../models/models"); 
 const { route } = require("./primaryData");
+const { route } = require("./organization");
 
 //GET all entries depending on organization
 //Example Route Link: localhost:3000/eventdata
@@ -180,6 +181,38 @@ router.delete("/removeclient", (req, res, next) => {
             res.json(data);
         }
     });
+});
+
+
+
+
+// Get events with count of last 60 days
+router.get("/clientsByEvents", (req, res, next) => {
+    var start_date = new Date();
+    var end_date = new Date();
+    start_date.setDate(start_date.getDate() - 60);
+    organization.findOne({ organizationName: ORGANIZATION }, (error, data) => {
+        if (error) {
+            console.log(error)
+        } else {
+            eventdata.find({
+                date: { $gte: start_date, $lt: end_date }, organization: data._id
+            }, function (err, docs) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    if (docs) {
+                        result = []
+
+                        for (let doc of docs) {
+                            result.push({ 'eventName': doc["eventName"], "number_of_clients_that_signed_up": doc["attendees"].length })
+                        }
+                        res.json(result)
+                    }
+                }
+            });
+        }
+     });
 });
 
 
