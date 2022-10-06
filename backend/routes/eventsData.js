@@ -168,7 +168,7 @@ router.put("/removeuser/:id", (req, res, next) => {
 //remove a client from all events, used in conjunction with delete client
 // will deal with both requests in frontend but for now this request should go first and then the delete client
 //Route Link: localhost:3000/eventdata/removeclient
-//EX: {"id":"UserID"}
+//Example Body: {"id":"UserID"}
 router.delete("/removeclient", (req, res, next) => {
     console.log(req.body.id)
     eventdata.updateMany({},
@@ -184,15 +184,6 @@ router.delete("/removeclient", (req, res, next) => {
 
 
 
-router.get("/dashboard", (req, res, next) => {
-    eventdata.find({},{date:{$lte: new Date(new Date().setMonth(new Date().getMonth() + 5))}}),
-    (error, data) =>{
-        if(error) {
-            return next(error);
-        } else {
-            res.json(data);
-        }
-    }
-})
+
 
 module.exports = router;
