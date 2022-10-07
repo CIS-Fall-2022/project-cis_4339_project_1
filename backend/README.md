@@ -18,9 +18,10 @@ MONGO_URL = mongodb+srv://<username>:<password>@cluster0.abcdc.mongodb.net/dbnam
 ```
 npm start
 ```
-### API Documentation for all API routes 
+### API Documentation for all API routes
+There is also a JSON file that contains the API documentation
 ```
-Ffor Documentation:
+For Documentation:
 [https://www.postman.com/edzunig/workspace/group1-cis4339/overview](https://documenter.getpostman.com/view/17571565/2s83zfRQvs)
 
 For Testing:
@@ -31,4 +32,5 @@ https://www.postman.com/cis3365/workspace/group-1-apis-cis4339/collection/175715
 mongodb+srv://TestUser:TestPassword@cluster0.dmsz3xp.mongodb.net/test
 ```
 The Mongo Atlas has data already in it but If you would like to run a local instance, that is also fine.
+
 Our team has also included a JSON file with the API requests
