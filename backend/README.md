@@ -20,11 +20,7 @@ npm start
 ```
 ### API Documentation for all API routes
 ```
-For Documentation:
-[https://www.postman.com/edzunig/workspace/group1-cis4339/overview](https://documenter.getpostman.com/view/17571565/2s83zfRQvs)
-
-For Testing:
-https://www.postman.com/cis3365/workspace/group-1-apis-cis4339/collection/17571565-e94b6158-fc3f-4805-822e-8ee9ab8f346a?action=share&creator=17571565
+https://documenter.getpostman.com/view/17571565/2s83zfRQvs
 ```
 ### Link for Mongo Atlas connection
 ```
