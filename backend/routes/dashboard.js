@@ -8,7 +8,7 @@ let { organizationdata } = require("../models/models");
 // Source https://stackoverflow.com/questions/21387969/mongodb-count-the-number-of-items-in-an-array
 //Route Link: localhost:3000/dashboard/
 //Example Body: {"id":"OrganizationID"}
-// date functionality will be inplemented in the frontend
+// date functionality will be inplemented in the frontend since we could not get it to work in the backend
 router.get("/", (req, res, next) => {
     eventdata.aggregate([
     {$match: {organization: req.body.id}},
