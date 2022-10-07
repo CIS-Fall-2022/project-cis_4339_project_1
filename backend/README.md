@@ -31,3 +31,4 @@ https://www.postman.com/cis3365/workspace/group-1-apis-cis4339/collection/175715
 mongodb+srv://TestUser:TestPassword@cluster0.dmsz3xp.mongodb.net/test
 ```
 The Mongo Atlas has data already in it but If you would like to run a local instance, that is also fine.
+Our team has also included a JSON file with the API requests
