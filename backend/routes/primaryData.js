@@ -118,6 +118,8 @@ router.put("/:id", (req, res, next) => {
 //Example Body: {"id":"e8320710-4418-11ed-9e07-c35f33399c12"}
 router.delete("/delete", (req, res, next) => {
     console.log(req.body.id)
+    //  simple delete only one client from the collection using body id
+    // this should go after the update many events in eventsData
     primarydata.deleteOne({ _id: req.body.id }, function (err) {
         if (err) {
             console.log(err)
