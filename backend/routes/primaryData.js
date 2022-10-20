@@ -4,13 +4,14 @@ const router = express.Router();
 //importing data model schemas
 let { primarydata } = require("../models/models"); 
 let { eventdata } = require("../models/models"); 
+const orgID = process.env.ORG_ID;
 
 //GET all entries on a certain company using body request
 /*Example Route Link: localhost:3000/primarydata/
 
 Example Body: { "id":"3c3c6e50-42c4-11ed-b715-0d8c70bb56bc"} (ID value just for example purposes) */
 router.get("/", (req, res, next) => { 
-    primarydata.find( {organization: req.body.id},
+    primarydata.find( {organization: orgID},
         (error, data) => {
             if (error) {
                 return next(error);
@@ -38,14 +39,13 @@ router.get("/id/:id", (req, res, next) => {
 
 //GET entries based on search query
 //Example Route Link: 'localhost:3000/primarydata/search/?firstName=Bob&lastName=&searchBy=name' 
-//Request Body Example {"id":"Organization ID"}
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" }, organization: req.body.id}
+        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" }, organization: orgID}
     } else if (req.query["searchBy"] === 'number') {
         dbQuery = {
-            "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }, organization: req.body.id
+            "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }, organization: orgID
         }
     };
     primarydata.find( 
