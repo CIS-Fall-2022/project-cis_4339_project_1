@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const orgID = process.env.ORG_ID;
 
 //importing data model schemas
 let { eventdata } = require("../models/models"); 
@@ -9,7 +10,7 @@ const { route } = require("./primaryData");
 //Example Route Link: localhost:3000/eventdata
 //Example Body: {"id":"(EventID)" }
 router.get("/", (req, res, next) => { 
-    eventdata.find( {organization: req.body.id},
+    eventdata.find( {organization: orgID},
         (error, data) => {
             if (error) {
                 return next(error);
@@ -34,14 +35,13 @@ router.get("/id/:id", (req, res, next) => {
 
 //GET events based on search query
 //Example Route Link: localhost:3000/eventdata/search/?eventName=Food&searchBy=name' 
-//Request body Example {"id":"0acad70-42ae-11ed-9419-f17976354230"}
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" }, organization: req.body.id }
+        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" }, organization: orgID }
     } else if (req.query["searchBy"] === 'date') {
         dbQuery = {
-            date:  req.query["eventDate"], organization: req.body.id
+            date:  req.query["eventDate"], organization: orgID
         }
     };
     eventdata.find( 
@@ -153,8 +153,7 @@ router.delete("/delete", (req, res, next) => {
 // remove a client from an event, uses params since body does not work in this route
 //user client id in the link
 //Route Link: localhost:3000/eventdata/removeuser/User_ID_goes_here
-router.put("/removeuser/:id", (req, res, next) => {
-    console.log(req.params.id)
+router.put("/removeuser", (req, res, next) => {
     eventdata.updateOne({_id: req.params.id},
      { $pull: { attendees: req.body.id } }, 
      (error, data) =>{
@@ -171,7 +170,6 @@ router.put("/removeuser/:id", (req, res, next) => {
 //Route Link: localhost:3000/eventdata/removeclient
 //Example Body: {"id":"UserID"}
 router.delete("/removeclient", (req, res, next) => {
-    console.log(req.body.id)
     eventdata.updateMany({},
      { $pull: { attendees: req.body.id } }, 
      (error, data) =>{
