@@ -17,6 +17,9 @@ ORG_ID = 1ad7b1c0-42c4-11ed-a805-bb9eeb9a45bd
 ORG_ID = 50acad70-42ae-11ed-9419-f17976354230
 ORG_ID = 3c3c6e50-42c4-11ed-b715-0d8c70bb56bc
 also change port number in app.js for each instance
+PORT = 3000
+PORT = 3001
+PORT = 3002
 ```
 
 ### Compiles and hot-reloads for development
