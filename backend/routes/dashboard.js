@@ -11,7 +11,7 @@ returns the result as a date value to use in the aggregate query*/
 function subtractMonths(numOfMonths, date = new Date()) {
     date.setMonth(date.getMonth() - numOfMonths);
   
-    return date;
+    return  date;
 }
 
 
