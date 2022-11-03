@@ -126,6 +126,15 @@ export default {
         });
       });
     },
+    deleteUser() {
+      let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/removeclient/${this.id}`;
+      axios.delete(apiURL).then(() => {
+      axios.delete(import.meta.env.VITE_ROOT_API + `/primarydata/delete/${this.id}`).then(() => {
+        alert("Client has been deleted.");
+        this.$router.back()
+      });
+    });
+    },
   },
   validations() {
     return {
@@ -338,6 +347,13 @@ export default {
               class="border border-red-700 bg-white text-red-700 rounded"
               @click="$router.go(-1)"
             >Go back</button>
+          </div>
+          <div class="flex justify-between mt-10 mr-20">
+            <button
+              type="submit"
+              class="bg-red-700 text-white rounded"
+              @click="deleteUser"
+            >Delete Client</button>
           </div>
         </div>
 
