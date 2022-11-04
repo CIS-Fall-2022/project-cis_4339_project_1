@@ -139,8 +139,8 @@ router.put("/addAttendee/:id", (req, res, next) => {
 //Delete an event based on event id using body request
 //Route Link: localhost:3000/eventdata/delete
 //Example Body: {"id":"EventID"}
-router.delete("/delete", (req, res, next) => {
-    eventdata.deleteOne({ _id: req.body.id }, function (err) {
+router.delete("/delete/:id", (req, res, next) => {
+    eventdata.deleteOne({ _id: req.params.id }, function (err) {
         if (err) {
             console.log(err)
         } else {
@@ -169,9 +169,9 @@ router.put("/removeuser", (req, res, next) => {
 // will deal with both requests in frontend but for now this request should go first and then the delete client
 //Route Link: localhost:3000/eventdata/removeclient
 //Example Body: {"id":"UserID"}
-router.delete("/removeclient", (req, res, next) => {
+router.delete("/removeclient/:id", (req, res, next) => {
     eventdata.updateMany({},
-     { $pull: { attendees: req.body.id } }, 
+     { $pull: { attendees: req.params.id } }, 
      (error, data) =>{
         if (error) {
             return next(error);
