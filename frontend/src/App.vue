@@ -84,8 +84,15 @@ export default {
   },
 
 
-  
   name: "App",
+  data() {
+    return {
+      organization : ""
+    }
+  },
+  mounted() {
+    mydata().then(r => { this.organization = r.data.name });
+  }
 };
 </script>
 
