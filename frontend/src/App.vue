@@ -45,10 +45,11 @@
       <section
         class="justify-end items-center h-24 flex"
         style="
-          background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);
+          background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%)
         "
       >
-        <h1 class="mr-20 text-3xl text-white">Dataplatform</h1>
+      <!-- added functionality to display the organization name -->
+        <h1 class="mr-20 text-3xl text-white">{{organizationName}}</h1>
       </section>
       <div>
         <router-view></router-view>
@@ -58,8 +59,31 @@
 </template>
 
 <script>
-import { mydata } from "./assets/retrieve_organization";
-export default {
+// this gets the route to get one organization information which is the used to display in the page
+import axios from "axios";
+export default {  
+  props: ["id"],
+  data() {
+    return {
+      organizationName:"",
+    };
+  },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
+  beforeMount() {
+    axios
+      .get(
+        import.meta.env.VITE_ROOT_API +
+          `/organization/one`
+      )
+      .then((resp) => {
+        let data = resp.data[0];
+        this.organizationName = data.organizationName;
+      });
+  },
+
+
   name: "App",
   data() {
     return {
