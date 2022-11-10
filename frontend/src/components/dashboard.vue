@@ -31,7 +31,7 @@
           <tbody class="divide-y divide-gray-300">
             <tr v-for="event in queryData">
             <td class="p-2 text-left">{{ event.eventName }}</td>
-            <td class="p-2 text-left">{{ event.number_of_clients_signed_up }}</td>
+            <td class="p-2 text-left">{{ event.count }}</td>
       </tr>
     </tbody>
   </table>
@@ -102,7 +102,7 @@
     axios.get(apiURL).then((resp) => {
       this.queryData = resp.data;
       this.chartData.labels = resp.data.map(value => value.eventName);
-      this.chartData.datasets[0].data = resp.data.map(value => value.number_of_clients_signed_up);
+      this.chartData.datasets[0].data = resp.data.map(value => value.count);
     });
     window.scrollTo(0, 0);
   },
