@@ -82,20 +82,10 @@ export default {
         this.organizationName = data.organizationName;
       });
   },
-
-
+  
   name: "App",
-  data() {
-    return {
-      organization : ""
-    }
-  },
-  mounted() {
-    mydata().then(r => { this.organization = r.data.name });
-  }
 };
 </script>
-
 <style>
 #_container {
   background-color: #c8102e;
