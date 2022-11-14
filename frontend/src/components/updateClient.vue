@@ -4,6 +4,7 @@ import { required, email, alpha, numeric } from "@vuelidate/validators";
 import VueMultiselect from "vue-multiselect";
 import axios from "axios";
 import { DateTime } from "luxon";
+import Swal from "sweetalert2";
 
 export default {
   props: ["id"],
@@ -98,44 +99,90 @@ export default {
     handleClientUpdate() {
       let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/${this.id}`;
       axios.put(apiURL, this.client).then(() => {
-        alert("Update has been saved.");
+        Swal.fire(
+          'Update has been saved!',
+          'Task Complete!',
+          'success'
+        )
         this.$router.back().catch((error) => {
           console.log(error);
         });
       });
     },
     addToEvent() {
+      let errorEvents = []
       this.eventsChosen.forEach((event) => {
-        let apiURL =
-          import.meta.env.VITE_ROOT_API + `/eventdata/addAttendee/` + event._id;
-        axios.put(apiURL, { attendee: this.$route.params.id }).then(() => {
-          this.clientEvents = [];
-          axios
-            .get(
-              import.meta.env.VITE_ROOT_API +
-              `/eventdata/client/${this.$route.params.id}`
-            )
-            .then((resp) => {
-              let data = resp.data;
-              for (let i = 0; i < data.length; i++) {
-                this.clientEvents.push({
-                  eventName: data[i].eventName,
-                });
+
+        let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/client/${this.$route.params.id}`
+        axios.get(apiURL).then((resp) => {
+          let data = resp.data;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i]["_id"] == event._id) {
+              errorEvents.push(data[i].eventName)
+              if (errorEvents.length > 0 && this.eventsChosen[this.eventsChosen.length - 1] == event) {
+                Swal.fire(
+                  'Error!',
+                  `The following events already exist: ${errorEvents}`,
+                  'error'
+                )
               }
-            });
-        });
+              continue
+            }
+          }
+          apiURL =
+            import.meta.env.VITE_ROOT_API + `/eventdata/addAttendee/` + event._id;
+          axios.put(apiURL, { attendee: this.$route.params.id }).then(() => {
+            apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/addAttendee/` + event._id;
+            this.clientEvents = [];
+            axios
+              .get(
+                import.meta.env.VITE_ROOT_API +
+                `/eventdata/client/${this.$route.params.id}`
+              )
+              .then((resp) => {
+                let data = resp.data;
+                for (let i = 0; i < data.length; i++) {
+                  this.clientEvents.push({
+                    eventName: data[i].eventName,
+                  });
+                }
+                if (errorEvents.length > 0 && this.eventsChosen[this.eventsChosen.length - 1] == event) {
+                  Swal.fire(
+                  'Error!',
+                  `The following events already exist: ${errorEvents}`,
+                  'error'
+                )
+                }
+              });
+          });
+
+        })
       });
+
     },
     deleteUser() {
-      this.$confirm("Are you sure you want to delete?").then(() => {
-        let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/removeclient/${this.id}`;
-        axios.delete(apiURL).then(() => {
-          axios.delete(import.meta.env.VITE_ROOT_API + `/primarydata/delete/${this.id}`).then(() => {
-            alert("Client has been deleted.");
-            this.$router.back()
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Deleted!',
+            'Client has been deleted.',
+            'success'
+          )
+          let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/removeclient/${this.id}`;
+          axios.delete(apiURL).then(() => {
+            axios.delete(import.meta.env.VITE_ROOT_API + `/primarydata/delete/${this.id}`).then(() => {
+              this.$router.back()
+            });
           });
-        });
-
+        }
       });
     },
   },

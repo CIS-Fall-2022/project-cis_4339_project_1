@@ -6,8 +6,8 @@ For form validation [Vuelidate](https://vuelidate-next.netlify.app/) is used.
 ```
 npm install
 
-Make sure you have Vue Simple Alert installed using:
-npm i vue3-simple-alert-next
+Make sure you have Vue Sweet Alert installed using:
+npm install -S vue-sweetalert2
 
 ```
 
