@@ -2,6 +2,8 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, alpha, numeric } from "@vuelidate/validators";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 export default {
   setup() {
     return { v$: useVuelidate({ $autoDirty: true }) };
@@ -42,7 +44,11 @@ export default {
         axios
           .post(apiURL, this.client)
           .then(() => {
-            alert("Client has been succesfully added.");
+            Swal.fire(
+              'Client has been succesfully added!',
+              'Task Complete!',
+              'success'
+            )
             this.$router.push("/findclient");
             this.client = {
               firstName: "",

@@ -192,6 +192,7 @@ import useVuelidate from "@vuelidate/core";
 import { required, email, alpha, numeric } from "@vuelidate/validators";
 import axios from "axios";
 import { DateTime } from "luxon";
+import Swal from "sweetalert2";
 
 export default {
   props: ["id"],
@@ -259,7 +260,11 @@ export default {
       this.event.services = this.checkedServices;
       let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/${this.id}`;
       axios.put(apiURL, this.event).then(() => {
-        alert("Update has been saved.");
+        Swal.fire(
+          'Update has been saved!',
+          'Task Complete!',
+          'success'
+        )
         this.$router.back().catch((error) => {
           console.log(error);
         });
@@ -269,14 +274,29 @@ export default {
       this.$router.push({ name: "updateclient", params: { id: clientID } });
     },
     deleteEvent() {
-      this.$confirm("Are you you want to delete?").then(() => {
-        let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/delete/${this.id}`;
-        axios.delete(apiURL).then(() => {
-          alert("Event has been deleted.");
-          this.$router.back().catch((error) => {
-            console.log(error);
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Deleted!',
+            'Event has been deleted.',
+            'success'
+          )
+          let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/delete/${this.id}`;
+          axios.delete(apiURL).then(() => {
+            this.$router.back().catch((error) => {
+              console.log(error);
+            });
           });
-        });
+        }
       });
     },
   },
