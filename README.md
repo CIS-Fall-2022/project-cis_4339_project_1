@@ -16,4 +16,5 @@ cd frontend
 ```
 Follow instructions in frontend README
 
-.
+Make sure you have Vue Simple Alert installed using:
+npm i vue3-simple-alert-next

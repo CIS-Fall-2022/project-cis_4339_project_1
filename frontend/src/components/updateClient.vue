@@ -127,7 +127,7 @@ export default {
       });
     },
     deleteUser() {
-      this.$confirm("Are you sure?").then(() => {
+      this.$confirm("Are you sure you want to delete?").then(() => {
         let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/removeclient/${this.id}`;
         axios.delete(apiURL).then(() => {
           axios.delete(import.meta.env.VITE_ROOT_API + `/primarydata/delete/${this.id}`).then(() => {
