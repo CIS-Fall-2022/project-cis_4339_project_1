@@ -12,17 +12,12 @@
             <label class="block">
               <span class="text-gray-700">Event Name</span>
               <span style="color:#ff0000">*</span>
-              <input
-                type="text"
+              <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                v-model="event.eventName"
-              />
+                v-model="event.eventName" />
               <span class="text-black" v-if="v$.event.eventName.$error">
-                <p
-                  class="text-red-700"
-                  v-for="error of v$.event.eventName.$errors"
-                  :key="error.$uid"
-                >{{ error.$message }}!</p>
+                <p class="text-red-700" v-for="error of v$.event.eventName.$errors" :key="error.$uid">{{ error.$message
+                }}!</p>
               </span>
             </label>
           </div>
@@ -34,15 +29,10 @@
               <span style="color:#ff0000">*</span>
               <input
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                v-model="event.date"
-                type="date"
-              />
+                v-model="event.date" type="date" />
               <span class="text-black" v-if="v$.event.date.$error">
-                <p
-                  class="text-red-700"
-                  v-for="error of v$.event.date.$errors"
-                  :key="error.$uid"
-                >{{ error.$message }}!</p>
+                <p class="text-red-700" v-for="error of v$.event.date.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
               </span>
             </label>
           </div>
@@ -55,8 +45,7 @@
               <span class="text-gray-700">Description</span>
               <textarea
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                rows="2"
-              ></textarea>
+                rows="2"></textarea>
             </label>
           </div>
 
@@ -68,53 +57,34 @@
             <label>Services Offered at Event</label>
             <div>
               <label for="familySupport" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="familySupport"
-                  value="Family Support"
-                  v-model="checkedServices"
+                <input type="checkbox" id="familySupport" value="Family Support" v-model="checkedServices"
                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
+                  notchecked />
                 <span class="ml-2">Family Support</span>
               </label>
             </div>
             <div>
               <label for="adultEducation" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="adultEducation"
-                  value="Adult Education"
-                  v-model="checkedServices"
+                <input type="checkbox" id="adultEducation" value="Adult Education" v-model="checkedServices"
                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
+                  notchecked />
                 <span class="ml-2">Adult Education</span>
               </label>
             </div>
             <div>
               <label for="youthServices" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="youthServices"
-                  value="Youth Services Program"
-                  v-model="checkedServices"
+                <input type="checkbox" id="youthServices" value="Youth Services Program" v-model="checkedServices"
                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
+                  notchecked />
                 <span class="ml-2">Youth Services Program</span>
               </label>
             </div>
             <div>
               <label for="childhoodEducation" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="childhoodEducation"
-                  value="Early Childhood Education"
+                <input type="checkbox" id="childhoodEducation" value="Early Childhood Education"
                   v-model="checkedServices"
                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
+                  notchecked />
                 <span class="ml-2">Early Childhood Education</span>
               </label>
             </div>
@@ -128,36 +98,27 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Address Line 1</span>
-              <input
-                type="text"
+              <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                placeholder
-                v-model="event.address.line1"
-              />
+                placeholder v-model="event.address.line1" />
             </label>
           </div>
           <!-- form field -->
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Address Line 2</span>
-              <input
-                type="text"
+              <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                placeholder
-                v-model="event.address.line2"
-              />
+                placeholder v-model="event.address.line2" />
             </label>
           </div>
           <!-- form field -->
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">City</span>
-              <input
-                type="text"
+              <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                placeholder
-                v-model="event.address.city"
-              />
+                placeholder v-model="event.address.city" />
             </label>
           </div>
           <div></div>
@@ -165,24 +126,18 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">County</span>
-              <input
-                type="text"
+              <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                placeholder
-                v-model="event.address.county"
-              />
+                placeholder v-model="event.address.county" />
             </label>
           </div>
           <!-- form field -->
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Zip Code</span>
-              <input
-                type="text"
+              <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                placeholder
-                v-model="event.address.zip"
-              />
+                placeholder v-model="event.address.zip" />
             </label>
           </div>
         </div>
@@ -190,25 +145,14 @@
         <!-- grid container -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
           <div class="flex justify-between mt-10 mr-20">
-            <button
-              @click="handleEventUpdate"
-              type="submit"
-              class="bg-red-700 text-white rounded"
-            >Update Event</button>
+            <button @click="handleEventUpdate" type="submit" class="bg-red-700 text-white rounded">Update Event</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
-            <button
-              type="reset"
-              class="border border-red-700 bg-white text-red-700 rounded"
-              @click="$router.go(-1)"
-            >Go back</button>
+            <button type="reset" class="border border-red-700 bg-white text-red-700 rounded" @click="$router.go(-1)">Go
+              back</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
-            <button
-              type="submit"
-              class="bg-red-700 text-white rounded"
-              @click="deleteEvent"
-            >Delete Event</button>
+            <button type="submit" class="bg-red-700 text-white rounded" @click="deleteEvent">Delete Event</button>
           </div>
         </div>
 
@@ -230,14 +174,8 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-300">
-                <tr
-                  @click="editClient(client.attendeeID)"
-                  v-for="client in attendeeData"
-                  :key="client._id"
-                >
-                  <td
-                    class="p-2 text-left"
-                  >{{ client.attendeeFirstName + " " + client.attendeeLastName }}</td>
+                <tr @click="editClient(client.attendeeID)" v-for="client in attendeeData" :key="client._id">
+                  <td class="p-2 text-left">{{ client.attendeeFirstName + " " + client.attendeeLastName }}</td>
                   <td class="p-2 text-left">{{ client.attendeeCity }}</td>
                   <td class="p-2 text-left">{{ client.attendeePhoneNumber }}</td>
                 </tr>
@@ -254,6 +192,7 @@ import useVuelidate from "@vuelidate/core";
 import { required, email, alpha, numeric } from "@vuelidate/validators";
 import axios from "axios";
 import { DateTime } from "luxon";
+import Swal from "sweetalert2";
 
 export default {
   props: ["id"],
@@ -298,7 +237,7 @@ export default {
           axios
             .get(
               import.meta.env.VITE_ROOT_API +
-                `/primarydata/id/${this.attendeeIDs[i]}`
+              `/primarydata/id/${this.attendeeIDs[i]}`
             )
             .then((resp) => {
               let data = resp.data[0];
@@ -321,7 +260,11 @@ export default {
       this.event.services = this.checkedServices;
       let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/${this.id}`;
       axios.put(apiURL, this.event).then(() => {
-        alert("Update has been saved.");
+        Swal.fire(
+          'Update has been saved!',
+          'Task Complete!',
+          'success'
+        )
         this.$router.back().catch((error) => {
           console.log(error);
         });
@@ -331,12 +274,29 @@ export default {
       this.$router.push({ name: "updateclient", params: { id: clientID } });
     },
     deleteEvent() {
-      let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/delete/${this.id}`;
-      axios.delete(apiURL).then(() => {
-        alert("Event has been deleted.");
-        this.$router.back().catch((error) => {
-          console.log(error);
-        });
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Deleted!',
+            'Event has been deleted.',
+            'success'
+          )
+          let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/delete/${this.id}`;
+          axios.delete(apiURL).then(() => {
+            this.$router.back().catch((error) => {
+              console.log(error);
+            });
+          });
+        }
       });
     },
   },

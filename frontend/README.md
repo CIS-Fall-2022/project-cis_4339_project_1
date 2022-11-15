@@ -5,6 +5,10 @@ For form validation [Vuelidate](https://vuelidate-next.netlify.app/) is used.
 ## Project setup
 ```
 npm install
+
+Make sure you have Vue Sweet Alert installed using:
+npm install -S vue-sweetalert2
+
 ```
 
 ### Before startup 
@@ -17,3 +21,4 @@ VITE_ROOT_API=http://localhost:3000
 ```
 npm run dev
 ```
+
