@@ -16,6 +16,8 @@ Setup a .env file with following variables, e.g.:
 
 ```
 VITE_ROOT_API=http://localhost:3000
+VITE_ROOT_API=http://localhost:3001
+VITE_ROOT_API=http://localhost:3002
 ```
 ### Compiles and hot-reloads for development
 ```
