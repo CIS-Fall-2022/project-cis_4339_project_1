@@ -11,7 +11,7 @@ npm install
 Setup a .env file with the following variables, e.g.:
 
 ```
-MONGO_URL = mongodb+srv://<username>:<password>@cluster0.abcdc.mongodb.net/dbname
+MONGO_URL = mongodb+srv://TestUser:TestPassword@cluster0.dmsz3xp.mongodb.net/test
 
 Three different organization variables(only use one per instance)
 ORG_ID = 50acad70-42ae-11ed-9419-f17976354230
