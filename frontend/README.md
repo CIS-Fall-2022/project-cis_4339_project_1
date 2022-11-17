@@ -15,6 +15,7 @@ npm install -S vue-sweetalert2
 Setup a .env file with following variables, e.g.:
 
 ```
+match with each backend instance when changing organizations
 VITE_ROOT_API=http://localhost:3000
 VITE_ROOT_API=http://localhost:3001
 VITE_ROOT_API=http://localhost:3002
