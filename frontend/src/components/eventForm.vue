@@ -48,7 +48,8 @@
               <span class="text-gray-700">Description</span>
               <textarea
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                rows="2"></textarea>
+                rows="2"
+                v-model="event.description"></textarea>
             </label>
           </div>
 
@@ -201,6 +202,7 @@ export default {
     };
   },
   methods: {
+    // added more validation
     async handleSubmitForm() {
       // Checks to see if there are any errors in validation
       const isFormCorrect = await this.v$.$validate();

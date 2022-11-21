@@ -45,7 +45,9 @@
               <span class="text-gray-700">Description</span>
               <textarea
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                rows="2"></textarea>
+                rows="2"
+                v-model="event.description"></textarea>
+                <!-- fixed the description not showing -->
             </label>
           </div>
 
@@ -102,6 +104,10 @@
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.line1" />
+              <span class="text-black" v-if="v$.event.address.line1.$error">
+                <p class="text-red-700" v-for="error of v$.event.address.line1.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
           <!-- form field -->
@@ -121,6 +127,10 @@
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.city" />
+                <span class="text-black" v-if="v$.event.address.city.$error">
+                <p class="text-red-700" v-for="error of v$.event.address.city.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
           <div></div>
@@ -132,6 +142,10 @@
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.county" />
+                <span class="text-black" v-if="v$.event.address.county.$error">
+                <p class="text-red-700" v-for="error of v$.event.address.county.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
           <!-- form field -->
@@ -142,6 +156,10 @@
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.zip" />
+                <span class="text-black" v-if="v$.event.address.zip.$error">
+                <p class="text-red-700" v-for="error of v$.event.address.zip.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
         </div>
@@ -261,7 +279,11 @@ export default {
     formattedDate(datetimeDB) {
       return DateTime.fromISO(datetimeDB).plus({ days: 1 }).toLocaleString();
     },
-    handleEventUpdate() {
+    async handleEventUpdate() {
+      // Checks to see if there are any errors in validation
+      const isFormCorrect = await this.v$.$validate();
+      // If no errors found. isFormCorrect = True then the form is submitted
+      if (isFormCorrect) {
       this.event.services = this.checkedServices;
       let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/${this.id}`;
       axios.put(apiURL, this.event).then(() => {
@@ -274,6 +296,7 @@ export default {
           console.log(error);
         });
       });
+    }
     },
     editClient(clientID) {
       this.$router.push({ name: "updateclient", params: { id: clientID } });
@@ -311,6 +334,12 @@ export default {
       event: {
         eventName: { required },
         date: { required },
+        address :{
+          line1: {required},
+          city: {required},
+          county: {required},
+          zip: {required}
+        },
       },
     };
   },

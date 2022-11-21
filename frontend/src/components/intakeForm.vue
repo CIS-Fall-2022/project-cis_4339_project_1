@@ -58,7 +58,7 @@ export default {
               phoneNumbers: [
                 {
                   primaryPhone: "",
-                  seondaryPhone: "",
+                  secondaryPhone: "",
                 },
               ],
               address: {
@@ -84,7 +84,10 @@ export default {
         lastName: { required, alpha },
         email: { email },
         address: {
-          city: { required },
+          line1: {required},
+          city: {required},
+          county: {required},
+          zip: {required}
         },
         phoneNumbers: [
           {
@@ -150,6 +153,7 @@ export default {
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Email</span>
+              <span style="color:#ff0000">*</span>
               <input type="email"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" v-model="client.email" />
@@ -191,9 +195,14 @@ export default {
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Address Line 1</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 v-model="client.address.line1" />
+              <span class="text-black" v-if="v$.client.address.line1.$error">
+                <p class="text-red-700" v-for="error of v$.client.address.line1.$errors" :key="error.$uid">{{ error.$message
+                }}!</p>
+              </span>
             </label>
           </div>
           <!-- form field -->
@@ -214,7 +223,7 @@ export default {
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 v-model="client.address.city" />
               <span class="text-black" v-if="v$.client.address.city.$error">
-                <p class="text-red-700" v-for="error of v$.client.address.$errors" :key="error.$uid">{{ error.$message
+                <p class="text-red-700" v-for="error of v$.client.address.city.$errors" :key="error.$uid">{{ error.$message
                 }}!</p>
               </span>
             </label>
@@ -224,18 +233,28 @@ export default {
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">County</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 v-model="client.address.county" />
+                <span class="text-black" v-if="v$.client.address.county.$error">
+                <p class="text-red-700" v-for="error of v$.client.address.county.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
           <!-- form field -->
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Zip Code</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 v-model="client.address.zip" />
+              <span class="text-black" v-if="v$.client.address.zip.$error">
+                <p class="text-red-700" v-for="error of v$.client.address.zip.$errors" :key="error.$uid">{{ error.$message
+                }}!</p>
+              </span>
             </label>
           </div>
           <div></div>
