@@ -101,9 +101,14 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Address Line 1</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.line1" />
+                <span class="text-black" v-if="v$.event.address.line1.$error">
+                <p class="text-red-700" v-for="error of v$.event.address.line1.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
           <!-- form field -->
@@ -119,9 +124,14 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">City</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.city" />
+                <span class="text-black" v-if="v$.event.address.city.$error">
+                <p class="text-red-700" v-for="error of v$.event.address.city.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
           <div></div>
@@ -129,18 +139,28 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">County</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.county" />
+                <span class="text-black" v-if="v$.event.address.county.$error">
+                <p class="text-red-700" v-for="error of v$.event.address.county.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
           <!-- form field -->
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Zip Code</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.zip" />
+                <span class="text-black" v-if="v$.event.address.zip.$error">
+                <p class="text-red-700" v-for="error of v$.event.address.zip.$errors" :key="error.$uid">{{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
         </div>
@@ -224,6 +244,12 @@ export default {
       event: {
         eventName: { required },
         date: { required },
+        address :{
+          line1: {required},
+          city: {required},
+          county: {required},
+          zip: {required}
+        },
       },
     };
   },

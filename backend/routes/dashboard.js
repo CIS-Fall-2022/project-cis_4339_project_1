@@ -32,7 +32,7 @@ router.get("/", (req, res, next) => {
     // https://www.mongodb.com/community/forums/t/is-there-a-way-to-query-array-fields-with-size-greater-than-some-specified-value/54597
     {$match: {$and:[{organization: orgID},{date:{$gt:pastDate, $lt:currDate}}, {"attendees.0": {$exists: true}}]}},
     // projecting all fields in case they are needed in the frontend along with count of attendees
-    {$project: { _id: 1, eventName: 1, count: { $size:"$attendees" }}}],
+    {$project: { _id: 1, eventName: 1, count: { $size:"$attendees" }, date: 1}}],
     (error, data) =>{
         if(error) {
             return next(error);

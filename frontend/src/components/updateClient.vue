@@ -73,7 +73,7 @@ export default {
         `/eventdata/client/${this.$route.params.id}`
       )
       .then((resp) => {
-        let data = resp.data;
+        // let data = resp.data;
         resp.data.forEach((event) => {
           this.clientEvents.push({
             eventName: event.eventName,

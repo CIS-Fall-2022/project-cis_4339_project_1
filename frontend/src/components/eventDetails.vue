@@ -98,6 +98,7 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Address Line 1</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.line1" />
@@ -116,6 +117,7 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">City</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.city" />
@@ -126,6 +128,7 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">County</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.county" />
@@ -135,6 +138,7 @@
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Zip Code</span>
+              <span style="color:#ff0000">*</span>
               <input type="text"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder v-model="event.address.zip" />
@@ -151,6 +155,7 @@
             <button type="reset" class="border border-red-700 bg-white text-red-700 rounded" @click="$router.go(-1)">Go
               back</button>
           </div>
+          <!-- made a button call a function (deleteEvent) to send the api requests to delete an event -->
           <div class="flex justify-between mt-10 mr-20">
             <button type="submit" class="bg-red-700 text-white rounded" @click="deleteEvent">Delete Event</button>
           </div>
@@ -189,7 +194,7 @@
 </template>
 <script>
 import useVuelidate from "@vuelidate/core";
-import { required, email, alpha, numeric } from "@vuelidate/validators";
+import { required, /*email, alpha, numeric */} from "@vuelidate/validators";
 import axios from "axios";
 import { DateTime } from "luxon";
 import Swal from "sweetalert2";

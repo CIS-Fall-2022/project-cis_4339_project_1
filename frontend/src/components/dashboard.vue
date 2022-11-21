@@ -26,12 +26,14 @@
             <tr>
               <th class="p-4 text-left">Event Name</th>
               <th class="p-4 text-left">Number of Clients</th>
+              <th class="p-4 text-left">Day of Event</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
-            <tr v-for="event in queryData">
+            <tr v-for="event in queryData" :key="event._id">
             <td class="p-2 text-left">{{ event.eventName }}</td>
             <td class="p-2 text-left">{{ event.count }}</td>
+            <td class="p-2 text-left">{{ formattedDate(event.date) }}</td>
       </tr>
     </tbody>
   </table>
@@ -42,6 +44,7 @@
 <script>
   import axios from "axios";
   import { Bar } from 'vue-chartjs'
+  import { DateTime } from "luxon";
   import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
   ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
@@ -109,6 +112,9 @@
   methods: {
     routePush(routeName) {
       this.$router.push({ name: routeName });
+    },
+    formattedDate(datetimeDB) {
+      return DateTime.fromISO(datetimeDB).plus({ days: 1 }).toLocaleString();
     },
   },
 };
